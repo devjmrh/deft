@@ -1,3 +1,4 @@
 pyTelegramBotAPI
 pyrogram
 telethon
+gunicorn
