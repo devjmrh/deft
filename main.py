@@ -1,12 +1,9 @@
 import telebot
 import os
-from flask import Flask
-
-# إعداد Flask لربط البوت مع الخادم
-app = Flask(__name__)
 
 # احصل على التوكن من متغيرات البيئة
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # قائمة لتخزين أسماء الملفات
@@ -61,15 +58,6 @@ def callback_handler(call):
         except FileNotFoundError:
             bot.send_message(call.message.chat.id, f"الملف {file_name} غير موجود أو تم حذفه مسبقًا.")
 
-# إعداد تطبيق Flask
-@app.route('/')
-def home():
-    return "البوت يعمل الآن!"
-
-# تشغيل البوت باستخدام Flask
-if __name__ == "__main__":
-    # قراءة المنفذ من متغير البيئة PORT أو استخدام 5000 إذا لم يكن موجودًا
-    port = int(os.environ.get("PORT", 5000))
-    # تشغيل البوت مع Flask
-    bot.polling(none_stop=True, interval=0)
-    app.run(host="0.0.0.0", port=port)
+# تشغيل البوت
+print("البوت يعمل الآن...")
+bot.polling()
